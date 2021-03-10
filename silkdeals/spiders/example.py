@@ -14,7 +14,11 @@ class ExampleSpider(scrapy.Spider):
         )
 
     def parse(self, response):
-        img = response.meta['screenshot']
+        # img = response.meta['screenshot']
 
-        with open('screenshot.png', 'wb') as f:
-            f.write(img)
+        # with open('screenshot.png', 'wb') as f:
+        #     f.write(img)
+        driver = response.meta['driver']
+        search_input = driver.find_element_by_xpath('//input[@id="search_form_input_homepage"]')
+        search_input.send_keys("hello world")
+        driver.save_screenshot('after_filling_input.png')
